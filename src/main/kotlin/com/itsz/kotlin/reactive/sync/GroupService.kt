@@ -1,7 +1,5 @@
 package com.itsz.kotlin.reactive.sync
 
-import kotlinx.coroutines.*
-import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.reactor.awaitSingle
 import org.springframework.stereotype.Service
 import org.springframework.web.reactive.function.client.WebClient
@@ -11,7 +9,7 @@ import java.time.LocalDateTime
 class GroupService(val groupRepository: GroupRepository, val webClient: WebClient) {
 
     suspend fun findAll(): List<Group> {
-        return groupRepository.findAll().toList()
+        return groupRepository.findAll()
     }
 
     suspend fun save(user: Group) = groupRepository.save(user)

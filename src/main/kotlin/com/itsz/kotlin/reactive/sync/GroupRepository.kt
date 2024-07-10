@@ -1,7 +1,6 @@
 package com.itsz.kotlin.reactive.sync
 
-import org.springframework.data.repository.CrudRepository
-import org.springframework.stereotype.Repository
+import org.springframework.data.jpa.repository.JpaRepository
 
-@Repository
-interface GroupRepository : CrudRepository<Group, Long>
+
+interface GroupRepository : JpaRepository<Group, Long>
