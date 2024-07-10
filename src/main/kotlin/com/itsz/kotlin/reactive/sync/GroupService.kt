@@ -12,19 +12,18 @@ import java.time.LocalDateTime
 @Service
 class GroupService(val groupRepository: GroupRepository, val webClient: WebClient, val restClient: RestClient) {
 
-    suspend fun findAll(): List<Group>  = coroutineScope {
+    suspend fun findAll(): List<Group> = coroutineScope {
         val groupList = (1..7 step 2).map { async { responseEntity(it) } }.map { it.await() }
         return@coroutineScope groupRepository.findAll() + groupList
     }
 
-    suspend fun findAllBlock(): List<Group>  = coroutineScope {
-        val groupList = (1..7 step 2).map { async { restClientResponse(it) } }
-            .map { it.await() }
+    fun findAllBlock(): List<Group> {
+        val groupList = (1..7 step 2).map { restClientResponse(it) }
             .map { Group(it.statusCode.value().toLong(), it.toString()) }
-        return@coroutineScope groupRepository.findAll() + groupList
+        return groupRepository.findAll() + groupList
     }
 
-     fun save(user: Group) = groupRepository.save(user)
+    fun save(user: Group) = groupRepository.save(user)
 
     private suspend fun responseEntity(index: Int): Group {
         println("${Thread.currentThread().name} ----> launch a new job $index at ${LocalDateTime.now()}")
@@ -43,7 +42,6 @@ class GroupService(val groupRepository: GroupRepository, val webClient: WebClien
             .retrieve()
             .toBodilessEntity()
     }
-
 
 
 }

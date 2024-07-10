@@ -10,7 +10,7 @@ class GroupController(val groupService: GroupService) {
     suspend fun findAll(): List<Group> = groupService.findAll()
 
     @GetMapping("/block")
-    suspend fun findAllBlock(): List<Group> = groupService.findAllBlock()
+    fun findAllBlock(): List<Group> = groupService.findAllBlock()
 
     @PostMapping
     fun save(@RequestBody user: Group) = groupService.save(user)
