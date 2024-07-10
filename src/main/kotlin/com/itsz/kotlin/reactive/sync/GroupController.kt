@@ -6,11 +6,17 @@ import org.springframework.web.bind.annotation.*
 @RequestMapping("/groups")
 class GroupController(val groupService: GroupService) {
 
-    @GetMapping
-    suspend fun findAll(): List<Group> = groupService.findAll()
+    @GetMapping("/nio")
+    suspend fun findAllWithNIO(): List<Group> = groupService.findAllWithNIO()
 
-    @GetMapping("/block")
-    fun findAllBlock(): List<Group> = groupService.findAllBlock()
+    @GetMapping("/vt")
+    suspend fun findAllWithVTContext(): List<Group> = groupService.findAllWithVTContext()
+
+    @GetMapping("/io")
+    suspend fun findAllWithIOContext(): List<Group> = groupService.findAllWithIOContext()
+
+    @GetMapping
+    suspend fun findAll() = groupService.findAll()
 
     @PostMapping
     fun save(@RequestBody user: Group) = groupService.save(user)

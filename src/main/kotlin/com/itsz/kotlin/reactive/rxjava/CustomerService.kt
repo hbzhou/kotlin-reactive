@@ -12,6 +12,7 @@ import reactor.core.publisher.Mono
 import reactor.kotlin.core.publisher.toFlux
 import java.time.LocalDateTime
 import java.util.concurrent.Flow
+import kotlin.random.Random
 
 @Service
 class CustomerService(
@@ -35,7 +36,7 @@ class CustomerService(
             .uri("/delay/$index")
             .retrieve()
             .toBodilessEntity()
-            .map { Customer(index.toLong(), it.toString()) }
+            .map { Customer(Random(10L).nextLong(), Thread.currentThread().toString()) }
             .awaitSingle()
     }
 

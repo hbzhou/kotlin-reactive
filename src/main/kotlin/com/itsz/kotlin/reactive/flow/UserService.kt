@@ -6,6 +6,7 @@ import kotlinx.coroutines.reactor.awaitSingle
 import org.springframework.stereotype.Service
 import org.springframework.web.reactive.function.client.WebClient
 import java.time.LocalDateTime
+import kotlin.random.Random
 
 @Service
 class UserService(val userRepository: UserRepository, val webClient: WebClient) {
@@ -41,7 +42,7 @@ class UserService(val userRepository: UserRepository, val webClient: WebClient) 
             .uri("/delay/$index")
             .retrieve()
             .toBodilessEntity()
-            .map { User(index.toLong(), it.toString()) }
+            .map { User(Random(10L).nextLong(), Thread.currentThread().toString()) }
             .awaitSingle()
     }
 }
