@@ -27,21 +27,21 @@ class GroupService(val groupRepository: GroupRepository, val webClient: WebClien
     suspend fun findAllWithVTContext(): List<Group> = withContext(Dispatchers.VT) {
         val groupList = (1..7 step 2).map { async { restClientResponse(it) } }
             .map { it.await() }
-            .map { Group(it.statusCode.value().toLong(), it.toString()) }
+            .map { Group(Thread.currentThread().threadId(), Thread.currentThread().toString()) }
         return@withContext groupRepository.findAll() + groupList
     }
 
     suspend fun findAllWithIOContext(): List<Group> = withContext(Dispatchers.IO) {
         val groupList = (1..7 step 2).map { async { restClientResponse(it) } }
             .map { it.await() }
-            .map { Group(Random(10L).nextLong(), Thread.currentThread().toString()) }
+            .map { Group(Thread.currentThread().threadId(), Thread.currentThread().toString()) }
         return@withContext groupRepository.findAll() + groupList
     }
 
     suspend fun findAll(): List<Group> {
         val groupList = (1..7 step 2).map { CompletableFuture.supplyAsync { restClientResponse(it) } }
             .map { it.await() }
-            .map { Group(Random(10L).nextLong(), Thread.currentThread().toString()) }
+            .map { Group(Thread.currentThread().threadId(), Thread.currentThread().toString()) }
         return groupRepository.findAll() + groupList
     }
 
@@ -53,7 +53,7 @@ class GroupService(val groupRepository: GroupRepository, val webClient: WebClien
             .uri("/delay/$index")
             .retrieve()
             .toBodilessEntity()
-            .map { Group(Random(10L).nextLong(), Thread.currentThread().toString()) }
+            .map { Group(Thread.currentThread().threadId(), Thread.currentThread().toString()) }
             .awaitSingle()
     }
 

@@ -42,7 +42,7 @@ class UserService(val userRepository: UserRepository, val webClient: WebClient) 
             .uri("/delay/$index")
             .retrieve()
             .toBodilessEntity()
-            .map { User(Random(10L).nextLong(), Thread.currentThread().toString()) }
+            .map { User(Thread.currentThread().threadId(), Thread.currentThread().toString()) }
             .awaitSingle()
     }
 }

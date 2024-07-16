@@ -36,7 +36,7 @@ class CustomerService(
             .uri("/delay/$index")
             .retrieve()
             .toBodilessEntity()
-            .map { Customer(Random(10L).nextLong(), Thread.currentThread().toString()) }
+            .map { Customer(Thread.currentThread().threadId(), Thread.currentThread().toString()) }
             .awaitSingle()
     }
 
