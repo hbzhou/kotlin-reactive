@@ -1,19 +1,30 @@
-delete from customer;
+DELETE
+FROM CUSTOMER;
 
-insert into customer(id, name) values (1,'Jeremy');
-insert into customer(id, name) values (2,'Jacob');
-insert into customer(id, name) values (3,'Johnson');
-
-
-delete from users;
-
-insert into users(id, name) values (1,'Alice');
-insert into users(id, name) values (2,'Bob');
-insert into users(id, name) values (3,'Caroline');
+INSERT INTO CUSTOMER(NAME)
+VALUES ('JACOB');
+INSERT INTO CUSTOMER(NAME)
+VALUES ('JEREMY');
+INSERT INTO CUSTOMER(NAME)
+VALUES ('JOHNSON');
 
 
-delete from groups;
+DELETE
+FROM USERS;
 
-insert into groups(id, name) values (1,'IT');
-insert into groups(id, name) values (2,'TECH');
-insert into groups(id, name) values (3,'BUSINESS');
+INSERT INTO USERS(NAME)
+VALUES ('ALICE');
+INSERT INTO USERS(NAME)
+VALUES ('BOB');
+INSERT INTO USERS(NAME)
+VALUES ('CAROLINE');
+
+DELETE
+FROM GROUPS;
+
+INSERT INTO GROUPS(NAME)
+VALUES ('IT');
+INSERT INTO GROUPS(NAME)
+VALUES ('TECH');
+INSERT INTO GROUPS(NAME)
+VALUES ('BUSINESS');
